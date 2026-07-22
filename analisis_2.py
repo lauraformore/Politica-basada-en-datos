@@ -19,8 +19,8 @@ def update_layout(fig, title):
 
 # ─── CARGAR DATOS ───────────────────────────────────────────
 
-url1 = "https://drive.google.com/uc?export=download&id=ID_DEL_ARCHIVO_1"
-url2 = "https://drive.google.com/uc?export=download&id=ID_DEL_ARCHIVO_2"
+url1 = "https://drive.google.com/file/d/196uBxYBORGvpqEdzB1BpCb0yNhNrBXyY/view?usp=sharing"
+url2 = "https://drive.google.com/file/d/1QXFzaRaKg8Zbdt789xAmX_5Od5rB6EUh/view?usp=sharing"
 
 df1 = pd.read_csv(url1, sep=";", encoding="latin-1", low_memory=False)
 df2 = pd.read_csv(url2, sep=";", encoding="latin-1", low_memory=False)

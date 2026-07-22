@@ -3,12 +3,19 @@ Electoral Intelligence Dashboard
 Run: streamlit run app.py
 """
 
+import os
+
 import streamlit as st
 import pandas as pd
 import plotly.express as px
 import requests
 import unicodedata
 import numpy as np
+import gdown
+import os
+import tempfile
+
+
 
 st.set_page_config(page_title="🗳️ Electoral Colombia 2022", layout="wide")
 
@@ -28,6 +35,7 @@ def limpiar_texto(texto):
     texto = unicodedata.normalize('NFKD', texto).encode('ascii', 'ignore').decode('utf-8')
     return texto
 
+
 @st.cache_data
 def cargar_datos():
     correcciones = {
@@ -36,10 +44,15 @@ def cargar_datos():
         "CHOCÓ": "CHOCO", "VAUPÉS": "VAUPES",
         "GUAINÍA": "GUAINIA", "VALLE": "VALLE DEL CAUCA",
     }
+    ids = {
+        "1ra Vuelta": "196uBxYBORGvpqEdzB1BpCb0yNhNrBXyY",
+        "2da Vuelta": "1QXFzaRaKg8Zbdt789xAmX_5Od5rB6EUh",
+    }
     dfs = []
-    for vuelta, path in [("1ra Vuelta", "data/MMV_NACIONAL_PRESIDENTE_2022_1v.csv"),
-                         ("2da Vuelta", "data/MMV_NACIONAL_PRESIDENTE_2022_2v.csv")]:
-        df = pd.read_csv(path, sep=';', encoding='latin-1', low_memory=False)
+    for vuelta, file_id in ids.items():
+        destino = os.path.join(tempfile.gettempdir(), f"{file_id}.csv")
+        gdown.download(id=file_id, output=destino, quiet=True)
+        df = pd.read_csv(destino, sep=';', encoding='latin-1', low_memory=False)
         df["DEPNOMBRE"] = df["DEPNOMBRE"].replace(correcciones).apply(limpiar_texto)
         df["Vuelta"] = vuelta
         dfs.append(df)
