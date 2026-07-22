@@ -1,0 +1,4 @@
+{
+    "github.copilot.chat.agentDebugLog.fileLogging.enabled": true,
+    "python-envs.defaultEnvManager": "ms-python.python:system"
+}
