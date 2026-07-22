@@ -3,3 +3,6 @@ plotly
 pandas
 numpy
 requests
+gdown
+os
+tempfile
